@@ -51,9 +51,10 @@ class StripeComponent extends Component
     {
         try {
             if ($make_default) {
-                return Customer::create(
-                    $details['invoice_settings'] = 
-                    ['default_payment_method' => $details['payment_method']]);
+                $details['invoice_settings'] = [
+                    'default_payment_method' => $details['payment_method']
+                ];
+                return Customer::create($details);
             }
             return Customer::create($details);
         } catch (ExceptionInterface $e) {
@@ -100,10 +101,9 @@ class StripeComponent extends Component
 
     public function getCharges($charge_id)
     {
-        try{
+        try {
             return charge::retrieve($charge_id);
-        }catch(ExceptionInterface $e)
-        {
+        } catch (ExceptionInterface $e) {
             return $e;
         }
     }
@@ -248,22 +248,21 @@ class StripeComponent extends Component
             return $e;
         }
     }
+
     public function cancelSubs($subs_id)
     {
-        try{
+        try {
             return Subscription::retrieve($subs_id)->cancel();
-        }catch(ExceptionInterface $e)
-        {
+        } catch (ExceptionInterface $e) {
             return $e;
         }
     }
 
     public function listSubs()
-    {   
-        try{
+    {
+        try {
             return Subscription::all();
-        }catch(ExceptionInterface $e)
-        {
+        } catch (ExceptionInterface $e) {
             return $e;
         }
     }
