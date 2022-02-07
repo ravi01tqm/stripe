@@ -248,4 +248,23 @@ class StripeComponent extends Component
             return $e;
         }
     }
+    public function cancelSubs($subs_id)
+    {
+        try{
+            return Subscription::retrieve($subs_id)->cancel();
+        }catch(ExceptionInterface $e)
+        {
+            return $e;
+        }
+    }
+
+    public function listSubs()
+    {   
+        try{
+            return Subscription::all();
+        }catch(ExceptionInterface $e)
+        {
+            return $e;
+        }
+    }
 }
